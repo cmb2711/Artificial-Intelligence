@@ -3,7 +3,7 @@ class Screw:
         self.Name = Name
         self.Weight = Weight
     def __str__(self):
-        return("\nName: " + self.Name + " Weight: " + str(self.Weight))
+        return("(" + self.Name + ", " + str(self.Weight) + ")")
     def __repr__(self):
         return("(" + self.Name + ", " + str(self.Weight) + ")")
 class ScrewList:
@@ -12,10 +12,21 @@ class ScrewList:
     def add(self, Screw):
         self.arr.append(Screw)
         self.insertion_sort()
-        print("")
-        print("Placement: " + str(self.binarysearch(self.arr, 0, len(self.arr), Screw.Weight)))
+        index = self.binarysearch(self.arr, 0, len(self.arr), Screw.Weight)
+        print("_______________________________________________________________________________")
+        print(self)
+        print("Placement Index: " + str(index))
+        print("Placed Between " + str(self.get(index - 1)) + " and " + str(self.get(index + 1)))
+        print("_______________________________________________________________________________")
+    def get(self, index):
+        if index<0 or index >= len(self.arr):
+            return None
+        return self.arr[index]
     def binarysearch(self, arr, low, high, x):
- 
+        try:
+            x = x.Weight
+        except:
+            pass
         # Check base case
         if high >= low:
     
@@ -49,4 +60,3 @@ class ScrewList:
 Screws= ScrewList()
 while True:
     Screws.add(Screw(input("Name: "), float(input("Weight: "))))
-    print(Screws)
